@@ -8,7 +8,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.common.exceptions import NoSuchElementException, TimeoutException
 
-__author__ =  'Nicholas Shengjun Wang'
+__author__ =  'S. Wang'
 __version__=  '20210124'
 
 def ShowMore_clicker(driver, t_seconds = 2**2):
