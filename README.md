@@ -1,5 +1,5 @@
 # GoFundMe_scraper
-This is python tool box, design for scaping infomaiton from GoFundMe.com.
+This is a python tool box design for scaping information from GoFundMe.com.
 
 - Version: 0.1
 - Last Updated: 2021/01/24
