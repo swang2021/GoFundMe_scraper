@@ -1,5 +1,5 @@
 # GoFundMe_scraper
-This is a python tool box design for scraping information from GoFundMe.com.
+This is a python toolbox designed for scraping information from GoFundMe.com.
 
 - Version: 0.1
 - Last Updated: 2021/01/24
