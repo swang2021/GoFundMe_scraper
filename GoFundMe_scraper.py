@@ -5,7 +5,6 @@ from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
-#from selenium.webdriver.common.action_chains import ActionChains
 from selenium.common.exceptions import NoSuchElementException, TimeoutException
 
 __author__ =  'S. Wang'
@@ -136,7 +135,6 @@ def profile_reader(profile):
         ##### text #####
         try:
             text = soup.find('div', class_="o-campaign-story mt3x").text
-            #text = soup.find('div', class_="o-campaign-story mt-three-halves").text
             text = text.replace('\n','').replace('\xa0','')
         except(AttributeError, IndexError) as e:
             text = None
