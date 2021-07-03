@@ -68,6 +68,8 @@ class MyWebScraper(object):
 
         init_page_source = BeautifulSoup(driver.page_source,'lxml')
         num_benchmark = self.num_obs(init_page_source)
+        # setting below is based on empirical evidence,
+        # which is highly dependent on your working environment
         if int(num_benchmark) <= 400:
             t_seconds = 2**2
         elif (int(num_benchmark) > 400) and (int(num_benchmark) <= 800):
@@ -109,12 +111,11 @@ class MyWebScraper(object):
 def profile_reader(profile):
     try:
         soup = BeautifulSoup(requests.get(profile).text, "lxml")
-
         ##### title #####
         try:
             title = soup.find('h1', class_="a-campaign-title").text
         except(AttributeError, IndexError) as e:
-            title = None #non-exist, fund-raiser not for people
+            title = None
         ##### created_date #####
         try:
             created_date = soup.find('span', class_="m-campaign-byline-created a-created-date").text
@@ -143,7 +144,6 @@ def profile_reader(profile):
             status = soup.find('h2', class_="m-progress-meter-heading").text
         except(AttributeError, IndexError) as e:
             status = None
-
     except:
         title, created_date, tag, location, text, status = None, None, None, None, None, None
 
