@@ -7,8 +7,11 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException, TimeoutException
 
-__author__ =  'S. Wang'
-__version__=  '20210703'
+__author__ =  'Shengjun Wang'
+__version__=  '0.1.2'
+__maintainer__ = "Shengjun Wang"
+__email__ = "sw3231@columbia.edu"
+
 
 def ShowMore_clicker(driver, t_seconds = 2**2):
     start_clicking_time = time.time()
