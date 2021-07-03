@@ -147,7 +147,17 @@ def profile_reader(profile):
             status = soup.find('h2', class_="m-progress-meter-heading").text
         except(AttributeError, IndexError) as e:
             status = None
+        ##### current_amount #####
+        try:
+            current_amount = soup.find('script').string.split('"current_amount":',1)[1].split(',',1)[0]
+        except(AttributeError, IndexError) as e:
+            current_amount = None
+        ##### goal_amount #####
+        try:
+            goal_amount = soup.find('script').string.split('"goal_amount":',1)[1].split(',',1)[0]
+        except(AttributeError, IndexError) as e:
+            goal_amount = None
     except:
-        title, created_date, tag, location, text, status = None, None, None, None, None, None
+        title, created_date, tag, location, text, status, current_amount, goal_amount = None, None, None, None, None, None, None, None
 
-    return title, created_date, tag, location, text, status
+    return title, created_date, tag, location, text, status, current_amount, goal_amount
