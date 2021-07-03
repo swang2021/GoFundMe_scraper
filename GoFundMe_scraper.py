@@ -68,9 +68,9 @@ class MyWebScraper(object):
 
         init_page_source = BeautifulSoup(driver.page_source,'lxml')
         num_benchmark = self.num_obs(init_page_source)
-        if int(num_benchmark) <= 500:
+        if int(num_benchmark) <= 400:
             t_seconds = 2**2
-        elif (int(num_benchmark) > 500) and (int(num_benchmark) <= 800):
+        elif (int(num_benchmark) > 400) and (int(num_benchmark) <= 800):
             t_seconds = 2**3
         else:
             t_seconds = 2**5
