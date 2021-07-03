@@ -7,5 +7,3 @@ This is a python toolbox designed for scraping information from GoFundMe.com.
 Please check this [Jupyter Notebook Page](https://github.com/swang2021/GoFundMe_scraper/blob/master/Implementation_with_WordFreqGraph.ipynb) for preview.
 
 If you have any questions, please feel free to contact: sw3231@columbia.edu. Thanks!
-
-
