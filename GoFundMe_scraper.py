@@ -8,7 +8,7 @@ from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException, TimeoutException
 
 __author__ =  'S. Wang'
-__version__=  '20210124'
+__version__=  '20210703'
 
 def ShowMore_clicker(driver, t_seconds = 2**2):
     start_clicking_time = time.time()
@@ -124,7 +124,7 @@ def profile_reader(profile):
         ##### tag #####
         try:
             tag = soup.find_all('a',
-                  class_="m-campaign-byline-type divider-prefix meta-divider flex-container align-middle color-dark-gray a-link--unstyled a-link")[0].text
+                  class_="m-campaign-byline-type divider-prefix meta-divider flex-container align-middle color-dark-gray hrt-tertiary-button hrt-base-button hrt-link hrt-link--unstyled")[0].text
         except(AttributeError, IndexError) as e:
             tag = None
         ##### location #####
@@ -138,8 +138,13 @@ def profile_reader(profile):
             text = text.replace('\n','').replace('\xa0','')
         except(AttributeError, IndexError) as e:
             text = None
+        ##### status #####
+        try:
+            status = soup.find('h2', class_="m-progress-meter-heading").text
+        except(AttributeError, IndexError) as e:
+            status = None
 
     except:
-        title, created_date, tag, location, text = None, None, None, None, None
+        title, created_date, tag, location, text, status = None, None, None, None, None, None
 
-    return title, created_date, tag, location, text
+    return title, created_date, tag, location, text, status
