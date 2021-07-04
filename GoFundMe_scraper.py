@@ -12,45 +12,36 @@ __version__=  '0.1.2'
 __maintainer__ = "Shengjun Wang"
 __email__ = "sw3231@columbia.edu"
 
-
 def ShowMore_clicker(driver, t_seconds = 2**2):
     start_clicking_time = time.time()
-
     i=0
     while True:
         i = i + 1
-
         try:
             button = driver.find_element_by_link_text('Show More')
             button.click()
             start_loading_time = time.time()
+            WebDriverWait(driver, t_seconds, 0.001).until(EC.element_to_be_clickable((By.LINK_TEXT, 'Show More')))
+            loading_time = time.time() - start_loading_time
+            print(i,", loading succeeded", ", using %s seconds" % loading_time)
+        except (TimeoutException, NoSuchElementException) as e:
+            page_source_lxml = BeautifulSoup(driver.page_source,'lxml')
             try:
-                WebDriverWait(driver, t_seconds, 0.001).until(EC.element_to_be_clickable((By.LINK_TEXT, 'Show More')))
+                num_demand = int(page_source_lxml.find('div', class_="heading-3").text.split(' results')[0])
+            except:
+                num_demand = 1000
+            num_supply = len(set([x.get('href') for x in page_source_lxml.find_all('a') if "https://www.gofundme.com/" in x.get('href')]))
+            if num_demand == num_supply:
                 loading_time = time.time() - start_loading_time
-                print(i,", loading succeeded", ", using %s seconds" % loading_time)
-            except TimeoutException:
-                page_source_lxml = BeautifulSoup(driver.page_source,'lxml')
-                try:
-                    num_demand = int(page_source_lxml.find('div', class_="heading-3").text.split(' results')[0])
-                except:
-                    num_demand = 1000
-                num_supply = len(set([x.get('href') for x in page_source_lxml.find_all('a') if "https://www.gofundme.com/" in x.get('href')]))
-                if num_demand == num_supply:
-                    loading_time = time.time() - start_loading_time
-                    print(i,", no more buttons", ", using %s seconds" % loading_time)
-                    break
-                else:
-                    #time.sleep(0)
-                    loading_time = time.time() - start_loading_time
-                    print(i,", loading failed", ", using %s seconds" % loading_time)
-                    break
-        except NoSuchElementException:
-            print(i,", no more buttons")
-            break
-
+                print(i,", no more buttons", ", using %s seconds" % loading_time)
+                break
+            else:
+                #time.sleep(0)
+                loading_time = time.time() - start_loading_time
+                print(i,", loading failed", ", using %s seconds" % loading_time)
+                break
     time_in_total = time.time() - start_clicking_time
     print("--- %s seconds in total ---" % time_in_total)
-
     return driver
 
 
