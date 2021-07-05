@@ -5,7 +5,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
-from selenium.common.exceptions import NoSuchElementException, TimeoutException
+from selenium.common.exceptions import NoSuchElementException, TimeoutException, ElementClickInterceptedException
 
 __author__ =  'Shengjun Wang'
 __version__=  '0.1.2'
@@ -18,13 +18,16 @@ def ShowMore_clicker(driver, t_seconds = 2**2):
     while True:
         i = i + 1
         try:
+            start_loading_time = time.time()
             button = driver.find_element_by_link_text('Show More')
             button.click()
-            start_loading_time = time.time()
             WebDriverWait(driver, t_seconds, 0.001).until(EC.element_to_be_clickable((By.LINK_TEXT, 'Show More')))
             loading_time = time.time() - start_loading_time
             print(i,", loading succeeded", ", using %s seconds" % loading_time)
-        except (TimeoutException, NoSuchElementException) as e:
+        except (NoSuchElementException, TimeoutException, ElementClickInterceptedException) as e:
+            # NoSuchElementException - happens when the page does not have the button at all
+            # TimeoutException - happens when the button is clicked multiple times, and do not show up anymore
+            # ElementClickInterceptedException - is this a control from page developer side?
             page_source_lxml = BeautifulSoup(driver.page_source,'lxml')
             try:
                 num_demand = int(page_source_lxml.find('div', class_="heading-3").text.split(' results')[0])
@@ -34,11 +37,13 @@ def ShowMore_clicker(driver, t_seconds = 2**2):
             if num_demand == num_supply:
                 loading_time = time.time() - start_loading_time
                 print(i,", no more buttons", ", using %s seconds" % loading_time)
+                print(repr(e))
                 break
             else:
                 #time.sleep(0)
                 loading_time = time.time() - start_loading_time
                 print(i,", loading failed", ", using %s seconds" % loading_time)
+                print(repr(e))
                 break
     time_in_total = time.time() - start_clicking_time
     print("--- %s seconds in total ---" % time_in_total)
