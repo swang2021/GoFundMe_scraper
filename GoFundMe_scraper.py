@@ -29,11 +29,11 @@ def ShowMore_clicker(driver, t_seconds = 2**2):
             # TimeoutException - happens when the button is clicked multiple times, and do not show up anymore
             # ElementClickInterceptedException - is this a control from page developer side?
             page_source_lxml = BeautifulSoup(driver.page_source,'lxml')
+            num_supply = len(set([x.get('href') for x in page_source_lxml.find_all('a') if "https://www.gofundme.com/" in x.get('href')]))
             try:
                 num_demand = int(page_source_lxml.find('div', class_="heading-3").text.split(' results')[0])
             except:
                 num_demand = 1000
-            num_supply = len(set([x.get('href') for x in page_source_lxml.find_all('a') if "https://www.gofundme.com/" in x.get('href')]))
             if num_demand == num_supply:
                 loading_time = time.time() - start_loading_time
                 print(i,", no more buttons", ", using %s seconds" % loading_time)
