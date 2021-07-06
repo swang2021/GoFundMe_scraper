@@ -20,7 +20,8 @@ def ShowMore_clicker(driver, t_seconds = 2**2):
         try:
             start_loading_time = time.time()
             button = driver.find_element_by_link_text('Show More')
-            button.click()
+            #button.click()
+            driver.execute_script("arguments[0].click();", button)
             WebDriverWait(driver, t_seconds, 0.001).until(EC.element_to_be_clickable((By.LINK_TEXT, 'Show More')))
             loading_time = time.time() - start_loading_time
             print(i,", loading succeeded", ", using %s seconds" % loading_time)
