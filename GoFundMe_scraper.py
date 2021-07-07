@@ -5,7 +5,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
-from selenium.common.exceptions import NoSuchElementException, TimeoutException, ElementClickInterceptedException
+from selenium.common.exceptions import NoSuchElementException, TimeoutException, ElementClickInterceptedException, WebDriverException
 
 __author__ =  'Shengjun Wang'
 __version__=  '0.1.3'
@@ -36,7 +36,7 @@ def ShowMore_clicker(driver, t_seconds = 2**2):
             loading_time = time.time() - start_loading_time
             print(i,", loading failed", ", using %s seconds," % loading_time, repr(e2))
             break
-        except (ElementClickInterceptedException) as e3:
+        except (ElementClickInterceptedException, WebDriverException) as e3:
             loading_time = time.time() - start_loading_time
             print(i,", need investigation", ", using %s seconds," % loading_time, repr(e3))
             break
