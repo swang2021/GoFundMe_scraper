@@ -20,14 +20,13 @@ def ShowMore_clicker(driver, t_seconds = 2**2):
         try:
             start_loading_time = time.time()
             button = driver.find_element_by_link_text('Show More')
-            driver.execute_script("arguments[0].click();", button) # another option -> button.click()
+            driver.execute_script("arguments[0].click();", button)
             WebDriverWait(driver, t_seconds, 0.001).until(EC.element_to_be_clickable((By.LINK_TEXT, 'Show More')))
             loading_time = time.time() - start_loading_time
             print(i,", loading succeeded", ", using %s seconds" % loading_time)
-        #except (NoSuchElementException, TimeoutException, ElementClickInterceptedException) as e:
-            # NoSuchElementException - happens when the page does not have the button at all
-            # TimeoutException - happens when the page is not fully loaded or no more buttons
-            # ElementClickInterceptedException - need investigation!?
+        # NoSuchElementException - happens when the page does not have the button at all
+        # TimeoutException - happens when the page is not fully loaded or no more buttons
+        # ElementClickInterceptedException - need investigation!?
         except (NoSuchElementException) as e1:
             loading_time = time.time() - start_loading_time
             print(i,", no such button", ", using %s seconds," % loading_time, repr(e1))
@@ -40,24 +39,6 @@ def ShowMore_clicker(driver, t_seconds = 2**2):
             loading_time = time.time() - start_loading_time
             print(i,", need investigation", ", using %s seconds," % loading_time, repr(e3))
             break
-            #page_source_lxml = BeautifulSoup(driver.page_source,'lxml')
-            #num_supply = len(set([x.get('href') for x in page_source_lxml.find_all('a') if "https://www.gofundme.com/" in x.get('href')]))
-            #try:
-            #    num_demand = int(page_source_lxml.find('div', class_="heading-3").text.split(' results')[0])
-            #except:
-            #    num_demand = 1000
-            #if num_demand == num_supply:
-            #    loading_time = time.time() - start_loading_time
-            #    print(i,", no more buttons", ", using %s seconds" % loading_time)
-            #    print(repr(e))
-            #    break
-            #else:
-            #    #time.sleep(0)
-            #    loading_time = time.time() - start_loading_time
-            #    print(i,", loading failed", ", using %s seconds" % loading_time)
-            #    print(repr(e))
-            #    break
-
     time_in_total = time.time() - start_clicking_time
     print("--- %s seconds in total ---" % time_in_total)
     return driver
