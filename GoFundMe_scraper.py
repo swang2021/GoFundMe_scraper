@@ -26,7 +26,7 @@ def ShowMore_clicker(driver, t_seconds = 2**2):
             print(i,", loading succeeded", ", using %s seconds" % loading_time)
         # NoSuchElementException - happens when the page does not have the button at all
         # TimeoutException - happens when the page is not fully loaded or no more buttons
-        # ElementClickInterceptedException - need investigation!?
+        # ElementClickInterceptedException or WebDriverException
         except (NoSuchElementException) as e1:
             loading_time = time.time() - start_loading_time
             print(i,", no such button", ", using %s seconds," % loading_time, repr(e1))
