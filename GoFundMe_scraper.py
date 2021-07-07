@@ -1,4 +1,4 @@
-import time, requests
+import os, time, requests
 from bs4 import BeautifulSoup
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
@@ -73,6 +73,8 @@ class MyWebScraper(object):
         prefs={"profile.managed_default_content_settings.images": 2}
         self.chromeOptions = webdriver.ChromeOptions()
         self.chromeOptions.add_experimental_option("prefs", prefs)
+        self.chromeOptions.add_argument("--log-level=3")
+        os.environ['WDM_LOG_LEVEL'] = '0'
 
         driver = webdriver.Chrome(ChromeDriverManager().install(), options=self.chromeOptions)
         driver.get(self.search_link)
