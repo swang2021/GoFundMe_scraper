@@ -1,4 +1,6 @@
-import os, time, requests
+import os
+import time
+import requests
 from bs4 import BeautifulSoup
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
